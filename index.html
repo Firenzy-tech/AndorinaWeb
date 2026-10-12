@@ -137,6 +137,37 @@ footer a{text-decoration:none}footer a:hover{color:#fff;text-decoration:underlin
 @media(max-width:900px){.fg{grid-template-columns:1fr 1fr}}@media(max-width:560px){.fg{grid-template-columns:1fr}}
 dialog{max-width:560px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:12px;padding:28px;background:var(--bg);color:var(--text)}
 dialog::backdrop{background:rgba(2,31,89,.6)}
+.eyebrow::before{content:"";display:inline-block;width:8px;height:8px;background:var(--ocre);margin-right:10px;border-radius:2px}
+.hl{box-shadow:inset 0 -.2em rgba(217,121,4,.38)}
+.hero{position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;opacity:.45;-webkit-mask-image:radial-gradient(ellipse at 72% 45%,#000 5%,transparent 70%);mask-image:radial-gradient(ellipse at 72% 45%,#000 5%,transparent 70%)}
+.hero .wrap{position:relative}
+.viz{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 28px 48px -26px rgba(2,31,89,.4)}
+.pill{position:absolute;left:-14px;bottom:26px;background:var(--navy);color:#fff;font:600 .8rem Inter;padding:9px 14px;border-radius:99px;display:flex;gap:8px;align-items:center}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--ocre)}
+.cap{font-size:.78rem;color:var(--soft);margin:10px 4px 0}
+.spin{transform-box:view-box;transform-origin:270px 220px;animation:spin 48s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:560px){.pill{left:8px}}
+.why{position:relative;overflow:hidden}
+.why::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(180,196,217,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(180,196,217,.07) 1px,transparent 1px);background-size:40px 40px}
+.why .wrap{position:relative}
+.banner{background-image:radial-gradient(rgba(180,196,217,.28) 1px,transparent 1px);background-size:22px 22px}
+.svc{position:relative}
+.svc::before{content:"";position:absolute;top:-1px;left:0;height:2px;width:0;background:var(--terra);transition:width .45s}
+.svc:hover::before{width:100%}
+.svc .ico{transition:transform .25s}.svc:hover .ico{transform:rotate(-6deg) scale(1.06)}
+.steps::after{content:"";position:absolute;left:0;top:27px;height:2px;width:0;background:var(--blue);transition:width 1.6s ease}
+.steps.in::after{width:100%}
+@media(max-width:900px){.steps::after{left:27px;top:0;width:2px;height:0;transition:height 1.6s ease}.steps.in::after{width:2px;height:100%}}
+.dash{margin:48px 0 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 28px 48px -28px rgba(2,31,89,.4)}
+.chrome{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid #B4C4D9;font-size:.78rem;color:#4a5870;background:#fff}
+.chrome i{width:10px;height:10px;border-radius:50%;background:#B4C4D9}.chrome span{margin-left:10px}
+.dash svg{display:block;width:100%;height:auto}
+.dash .b{transform:scaleY(.12);transform-box:fill-box;transform-origin:50% 100%;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.dash.in .b{transform:none}
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -173,25 +204,25 @@ Andorina</a>
 <div class="wrap">
 <div>
 <span class="eyebrow">Software a medida para pymes</span>
-<h1>Tecnología que impulsa tu negocio.</h1>
+<h1>Tecnología que <span class="hl">impulsa</span> tu negocio.</h1>
 <p class="lead">Desarrollamos software a medida, conectamos tus sistemas y optimizamos tus procesos para que tu empresa trabaje de forma más eficiente.</p>
 <div class="acts">
 <a class="btn btn-p" href="#contacto">Hablemos de tu proyecto</a>
 <a class="btn btn-s" href="#servicios">Explorar servicios</a>
 </div>
 </div>
-<svg viewBox="0 0 480 400" role="img" aria-label="Diagrama de nodos conectados que representa sistemas integrados y flujo ordenado de datos">
-<rect x="10" y="10" width="460" height="380" rx="14" fill="#fff" stroke="#B4C4D9"/>
-<g fill="none" stroke="#B4C4D9" stroke-width="2"><path d="M90 90H200M90 200H200M90 310H200"/></g>
-<g fill="none" stroke="#022873" stroke-width="2.5" class="flow"><path d="M200 90V200M200 310V200M200 200H290"/><path d="M370 200H400"/></g>
-<g fill="#F5F7FA" stroke="#022873" stroke-width="2"><rect x="30" y="64" width="60" height="52" rx="8"/><rect x="30" y="174" width="60" height="52" rx="8"/><rect x="30" y="284" width="60" height="52" rx="8"/></g>
-<g stroke="#022873" stroke-width="2" stroke-linecap="round"><path d="M44 80h32M44 92h22M44 104h28M44 190h32M44 202h22M44 214h28M44 300h32M44 312h22M44 324h28"/></g>
-<circle cx="200" cy="90" r="9" fill="#B4C4D9"/><circle cx="200" cy="310" r="9" fill="#B4C4D9"/><circle cx="200" cy="200" r="13" fill="#D97904"/>
-<rect x="290" y="150" width="80" height="100" rx="12" fill="#022873"/>
-<path d="M308 180h44M308 200h44M308 220h28" stroke="#B4C4D9" stroke-width="3" stroke-linecap="round"/>
-<circle cx="430" cy="200" r="22" fill="#BF2604"/><path d="M420 200l7 7 13-14" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="30" y="368" font-family="Inter,sans-serif" font-size="13" fill="#4a5870">Fuentes dispersas → integración → operación ordenada</text>
-</svg>
+<div class="hv"><div class="viz"><svg viewBox="0 0 540 440" role="img" aria-label="Diagrama de arquitectura: hojas de cálculo, ERP y CRM se conectan a una capa de integración central que alimenta un panel de control, reportes y una API"><defs><path id="p1" d="M150 88C205 88 175 220 225 220"/><path id="p2" d="M150 218H225"/><path id="p3" d="M150 348C205 348 175 220 225 220"/><path id="p4" d="M315 220C365 220 335 88 390 88"/><path id="p5" d="M315 220H390"/><path id="p6" d="M315 220C365 220 335 348 390 348"/></defs>
+<g font-family="Inter,sans-serif" font-size="11" font-weight="600" letter-spacing="1.4" fill="#4a5870" text-anchor="middle"><text x="85" y="34">ORIGEN</text><text x="270" y="34">INTEGRACIÓN</text><text x="455" y="34">SALIDA</text></g>
+<g class="spin" fill="none"><circle cx="270" cy="220" r="78" stroke="#B4C4D9" stroke-dasharray="3 9" stroke-width="2"/><circle cx="270" cy="220" r="108" stroke="#B4C4D9" stroke-opacity=".6" stroke-dasharray="2 12"/><circle cx="270" cy="142" r="5" fill="#022873"/><circle cx="378" cy="220" r="4" fill="#B4C4D9"/></g>
+<use href="#p1" fill="none" stroke="#B4C4D9" stroke-width="2"/><use href="#p1" fill="none" stroke="#022873" stroke-width="2" class="flow"/><use href="#p2" fill="none" stroke="#B4C4D9" stroke-width="2"/><use href="#p2" fill="none" stroke="#022873" stroke-width="2" class="flow"/><use href="#p3" fill="none" stroke="#B4C4D9" stroke-width="2"/><use href="#p3" fill="none" stroke="#022873" stroke-width="2" class="flow"/><use href="#p4" fill="none" stroke="#B4C4D9" stroke-width="2"/><use href="#p4" fill="none" stroke="#022873" stroke-width="2" class="flow"/><use href="#p5" fill="none" stroke="#B4C4D9" stroke-width="2"/><use href="#p5" fill="none" stroke="#022873" stroke-width="2" class="flow"/><use href="#p6" fill="none" stroke="#B4C4D9" stroke-width="2"/><use href="#p6" fill="none" stroke="#022873" stroke-width="2" class="flow"/>
+<g><rect x="20" y="60" width="130" height="56" rx="10" fill="#fff" stroke="#B4C4D9"/><rect x="34" y="78" width="20" height="20" rx="5" fill="#F5F7FA" stroke="#022873" stroke-width="1.6"/><path d="M39 85h10M39 91h6" stroke="#022873" stroke-width="1.6" stroke-linecap="round"/><text x="64" y="93" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#021F59">Hojas de cálculo</text></g><g><rect x="20" y="190" width="130" height="56" rx="10" fill="#fff" stroke="#B4C4D9"/><rect x="34" y="208" width="20" height="20" rx="5" fill="#F5F7FA" stroke="#022873" stroke-width="1.6"/><path d="M39 215h10M39 221h6" stroke="#022873" stroke-width="1.6" stroke-linecap="round"/><text x="64" y="223" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#021F59">ERP</text></g><g><rect x="20" y="320" width="130" height="56" rx="10" fill="#fff" stroke="#B4C4D9"/><rect x="34" y="338" width="20" height="20" rx="5" fill="#F5F7FA" stroke="#022873" stroke-width="1.6"/><path d="M39 345h10M39 351h6" stroke="#022873" stroke-width="1.6" stroke-linecap="round"/><text x="64" y="353" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#021F59">CRM</text></g>
+<g><rect x="390" y="60" width="130" height="56" rx="10" fill="#fff" stroke="#B4C4D9"/><rect x="404" y="78" width="20" height="20" rx="5" fill="#F5F7FA" stroke="#022873" stroke-width="1.6"/><path d="M409 85h10M409 91h6" stroke="#022873" stroke-width="1.6" stroke-linecap="round"/><text x="434" y="93" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#021F59">Panel de control</text></g><g><rect x="390" y="190" width="130" height="56" rx="10" fill="#fff" stroke="#B4C4D9"/><rect x="404" y="208" width="20" height="20" rx="5" fill="#F5F7FA" stroke="#022873" stroke-width="1.6"/><path d="M409 215h10M409 221h6" stroke="#022873" stroke-width="1.6" stroke-linecap="round"/><text x="434" y="223" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#021F59">Reportes</text></g><g><rect x="390" y="320" width="130" height="56" rx="10" fill="#fff" stroke="#B4C4D9"/><rect x="404" y="338" width="20" height="20" rx="5" fill="#F5F7FA" stroke="#022873" stroke-width="1.6"/><path d="M409 345h10M409 351h6" stroke="#022873" stroke-width="1.6" stroke-linecap="round"/><text x="434" y="353" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#021F59">API</text></g>
+<rect x="225" y="175" width="90" height="90" rx="18" fill="#022873"/><rect x="233" y="183" width="74" height="74" rx="12" fill="none" stroke="#B4C4D9" stroke-opacity=".5"/>
+<path d="M243 232c10 0 16-6 27-18 11 12 17 18 27 18-9 2-15 7-27 16-12-9-18-14-27-16z" fill="#B4C4D9"/><circle cx="270" cy="206" r="4" fill="#D97904"/>
+<circle r="4.5" fill="#D97904"><animateMotion dur="3.2s" begin="0.0s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle><circle r="4.5" fill="#BF2604"><animateMotion dur="3.2s" begin="0.5s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion></circle><circle r="4.5" fill="#D97904"><animateMotion dur="3.2s" begin="1.0s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle><circle r="4.5" fill="#D97904"><animateMotion dur="3.2s" begin="1.5s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion></circle><circle r="4.5" fill="#BF2604"><animateMotion dur="3.2s" begin="2.0s" repeatCount="indefinite"><mpath href="#p5"/></animateMotion></circle><circle r="4.5" fill="#D97904"><animateMotion dur="3.2s" begin="2.5s" repeatCount="indefinite"><mpath href="#p6"/></animateMotion></circle>
+<text x="270" y="300" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#021F59">Capa de integración</text>
+<g stroke="#B4C4D9" stroke-width="1"><path d="M20 400H520"/></g><text x="20" y="424" font-family="Inter,sans-serif" font-size="12" fill="#4a5870">Fuentes dispersas → un flujo ordenado → decisiones con visibilidad</text></svg>
+<div class="pill"><i></i>Una sola fuente de información</div></div><p class="cap">Ilustración conceptual de una arquitectura de integración.</p></div>
 </div>
 </section>
 
@@ -281,6 +312,13 @@ Andorina</a>
 <div><h3>Sistemas internos de operaciones, inventario o seguimiento de órdenes</h3><p>Control del estado de cada proceso con reglas propias de tu negocio.</p></div>
 <div><h3>Paneles de control para visualizar datos clave</h3><p>Indicadores claros para decidir con información actualizada.</p></div>
 </div>
+<figure class="dash"><div class="chrome"><i></i><i></i><i></i><span>Panel de control · vista conceptual ilustrativa, sin datos reales</span></div>
+<svg viewBox="0 0 900 290" role="img" aria-label="Ilustración de un panel de control con indicadores, un gráfico de barras con línea de tendencia y un gráfico circular"><rect width="900" height="290" fill="#F5F7FA"/><rect width="150" height="290" fill="#021F59"/><rect x="20" y="20" width="26" height="26" rx="7" fill="#B4C4D9"/><rect x="20" y="60" width="90" height="10" rx="5" fill="#B4C4D9" fill-opacity="0.9"/><rect x="20" y="92" width="70" height="10" rx="5" fill="#B4C4D9" fill-opacity="0.45"/><rect x="20" y="124" width="100" height="10" rx="5" fill="#B4C4D9" fill-opacity="0.45"/><rect x="20" y="156" width="80" height="10" rx="5" fill="#B4C4D9" fill-opacity="0.45"/><rect x="20" y="188" width="60" height="10" rx="5" fill="#B4C4D9" fill-opacity="0.45"/><rect x="0" y="60" width="3" height="10" fill="#D97904"/>
+<rect x="170" y="20" width="200" height="62" rx="10" fill="#fff" stroke="#B4C4D9"/><rect x="186" y="36" width="70" height="6" rx="3" fill="#B4C4D9"/><rect x="186" y="52" width="110" height="12" rx="4" fill="#022873" fill-opacity=".85"/><circle cx="348" cy="51" r="6" fill="#D97904"/><rect x="390" y="20" width="200" height="62" rx="10" fill="#fff" stroke="#B4C4D9"/><rect x="406" y="36" width="70" height="6" rx="3" fill="#B4C4D9"/><rect x="406" y="52" width="110" height="12" rx="4" fill="#022873" fill-opacity=".85"/><circle cx="568" cy="51" r="6" fill="#022873"/><rect x="610" y="20" width="270" height="62" rx="10" fill="#fff" stroke="#B4C4D9"/><rect x="626" y="36" width="70" height="6" rx="3" fill="#B4C4D9"/><rect x="626" y="52" width="110" height="12" rx="4" fill="#022873" fill-opacity=".85"/><circle cx="858" cy="51" r="6" fill="#BF2604"/>
+<rect x="170" y="100" width="410" height="170" rx="10" fill="#fff" stroke="#B4C4D9"/><g stroke="#B4C4D9" stroke-opacity=".6"><path d="M185 140H565M185 180H565M185 220H565"/></g><rect class="b" x="190" y="190" width="28" height="70" rx="4" fill="#022873" style="transition-delay:0ms"/><rect class="b" x="240" y="150" width="28" height="110" rx="4" fill="#022873" style="transition-delay:70ms"/><rect class="b" x="290" y="170" width="28" height="90" rx="4" fill="#022873" style="transition-delay:140ms"/><rect class="b" x="340" y="130" width="28" height="130" rx="4" fill="#022873" style="transition-delay:210ms"/><rect class="b" x="390" y="160" width="28" height="100" rx="4" fill="#022873" style="transition-delay:280ms"/><rect class="b" x="440" y="110" width="28" height="150" rx="4" fill="#022873" style="transition-delay:350ms"/><rect class="b" x="490" y="140" width="28" height="120" rx="4" fill="#022873" style="transition-delay:420ms"/><rect class="b" x="540" y="100" width="28" height="160" rx="4" fill="#BF2604" style="transition-delay:490ms"/>
+<polyline points="204,170 254,150 304,160 354,120 404,135 454,100 504,115 554,90" fill="none" stroke="#D97904" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="600" y="100" width="280" height="170" rx="10" fill="#fff" stroke="#B4C4D9"/><g fill="none" stroke-width="20"><circle cx="680" cy="185" r="45" stroke="#B4C4D9"/><circle cx="680" cy="185" r="45" stroke="#022873" stroke-dasharray="150 283" transform="rotate(-90 680 185)"/><circle cx="680" cy="185" r="45" stroke="#D97904" stroke-dasharray="48 283" stroke-dashoffset="-150" transform="rotate(-90 680 185)"/></g>
+<g fill="#B4C4D9"><rect x="750" y="150" width="100" height="8" rx="4"/><rect x="750" y="180" width="80" height="8" rx="4"/><rect x="750" y="210" width="90" height="8" rx="4"/></g><g><circle cx="738" cy="154" r="5" fill="#022873"/><circle cx="738" cy="184" r="5" fill="#D97904"/><circle cx="738" cy="214" r="5" fill="#B4C4D9"/></g></svg></figure>
 </div>
 </section>
 
@@ -351,6 +389,17 @@ const CONFIG = {
 };
 const $ = (s, c = document) => c.querySelector(s);
 $("#yr").textContent = new Date().getFullYear();
+document.querySelectorAll(".pain>*,.svc,.why .wrap>*,.sol div,.steps li,.contact .wrap>*").forEach(el => el.classList.add("reveal"));
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const targets = document.querySelectorAll(".reveal,.steps,.dash");
+if (reduce || !("IntersectionObserver" in window)) {
+  targets.forEach(t => t.classList.add("in"));
+  document.querySelectorAll("svg").forEach(v => v.pauseAnimations && v.pauseAnimations());
+} else {
+  document.documentElement.classList.add("js");
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+  targets.forEach(t => io.observe(t));
+}
 
 /* Contacto del footer */
 const cb = $("#contact-block");
