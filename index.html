@@ -9,6 +9,9 @@
 <meta property="og:title" content="Andorina | Desarrollo de Software y Soluciones Tecnológicas">
 <meta property="og:description" content="Desarrollo de software a medida, consultoría tecnológica, integración de sistemas y automatización de procesos para pymes.">
 <meta property="og:locale" content="es_ES">
+<meta property="og:image" content="content/Golondrina-original.png">
+<link rel="icon" type="image/png" href="content/Golondrina.png">
+<link rel="apple-touch-icon" href="content/Golondrina.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -42,7 +45,13 @@ header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px s
 header.scrolled{border-color:var(--line);box-shadow:0 4px 18px rgba(2,31,89,.08)}
 .bar{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px;transition:height .2s}
 header.scrolled .bar{height:60px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.4rem Manrope;color:var(--h)}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;font:800 1.4rem Manrope;color:var(--h)}
+.logo-img{height:38px;width:auto;display:block;object-fit:contain;transition:transform .2s ease,height .2s ease}
+header.scrolled .logo-img{height:32px}
+.logo:hover .logo-img{transform:scale(1.05)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) header .logo-img{filter:drop-shadow(0 1px 2px rgba(255,255,255,.25))}}
+:root[data-theme="dark"] header .logo-img{filter:drop-shadow(0 1px 2px rgba(255,255,255,.25))}
+footer .logo-img{height:34px;filter:drop-shadow(0 1px 3px rgba(255,255,255,.35))}
 nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
 nav a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--text)}nav a:hover{color:var(--terra)}
 .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;width:44px;height:44px;cursor:pointer;color:var(--h)}
@@ -177,8 +186,7 @@ dialog::backdrop{background:rgba(2,31,89,.6)}
 <header id="hdr">
 <div class="wrap bar">
 <a class="logo" href="#inicio" aria-label="Andorina, inicio">
-<!-- PLACEHOLDER DE LOGO: reemplazar por el isotipo/logotipo oficial -->
-<svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#022873"/><path d="M6 21c5 0 8-3 11-9 3 6 6 9 11 9-4 1-7 3-11 7-4-4-7-6-11-7z" fill="#B4C4D9"/><circle cx="17" cy="12" r="2.4" fill="#BF2604"/></svg>
+<img src="content/Golondrina.png" alt="Logo de Andorina" class="logo-img" width="48" height="38">
 Andorina</a>
 <nav id="nav" aria-label="Principal">
 <ul>
@@ -362,7 +370,7 @@ Andorina</a>
 <footer>
 <div class="wrap">
 <div class="fg">
-<div><a class="logo" href="#inicio"><svg width="30" height="30" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#B4C4D9"/><path d="M6 21c5 0 8-3 11-9 3 6 6 9 11 9-4 1-7 3-11 7-4-4-7-6-11-7z" fill="#022873"/></svg>Andorina</a>
+<div><a class="logo" href="#inicio" aria-label="Andorina, inicio"><img src="content/Golondrina.png" alt="Logo de Andorina" class="logo-img" width="43" height="34">Andorina</a>
 <p style="margin-top:14px">Acercamos la tecnología a las pymes con soluciones útiles, claras y adaptadas a sus procesos reales.</p></div>
 <div><h3>Secciones</h3><ul><li><a href="#inicio">Inicio</a></li><li><a href="#servicios">Servicios</a></li><li><a href="#soluciones">Soluciones</a></li><li><a href="#nosotros">Nosotros</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
 <div><h3>Servicios</h3><ul><li>Software a medida</li><li>Consultoría tecnológica</li><li>Integración de sistemas y APIs</li><li>Automatización de procesos</li></ul></div>
