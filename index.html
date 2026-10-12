@@ -177,6 +177,36 @@ dialog::backdrop{background:rgba(2,31,89,.6)}
 .dash.in .b{transform:none}
 .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 .js .reveal.in{opacity:1;transform:none}
+/* WhatsApp Widget */
+.wa-widget{position:fixed;bottom:24px;right:24px;z-index:99;font-family:Inter,system-ui,sans-serif}
+.wa-toggle{width:60px;height:60px;border-radius:50%;background:#25D366;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.45);transition:transform .2s,box-shadow .2s;position:relative}
+.wa-toggle:hover{transform:scale(1.08);box-shadow:0 8px 26px rgba(37,211,102,.6)}
+.wa-toggle:focus-visible{outline:3px solid var(--ocre);outline-offset:3px}
+.wa-tooltip{position:absolute;right:72px;background:#fff;color:#1b2433;font:600 .85rem Inter;padding:8px 14px;border-radius:20px;box-shadow:0 4px 16px rgba(2,31,89,.15);white-space:nowrap;pointer-events:none;transition:opacity .2s,transform .2s;border:1px solid #e6ecf5}
+@media(max-width:560px){.wa-tooltip{display:none}}
+.wa-widget.open .wa-tooltip{display:none}
+.wa-popup{position:fixed;bottom:96px;right:24px;width:340px;max-width:calc(100vw - 32px);background:#fff;border-radius:16px;box-shadow:0 12px 36px rgba(2,31,89,.22);overflow:hidden;border:1px solid var(--line);display:none;flex-direction:column;animation:waPop .25s ease forwards;transform-origin:bottom right}
+@keyframes waPop{from{opacity:0;transform:scale(.88) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.wa-widget.open .wa-popup{display:flex}
+.wa-header{background:#075E54;color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;position:relative}
+.wa-avatar{width:40px;height:40px;background:#fff;border-radius:50%;display:grid;place-items:center;position:relative;flex-shrink:0;overflow:visible}
+.wa-avatar img{width:28px;height:auto}
+.wa-online-dot{position:absolute;bottom:0;right:0;width:11px;height:11px;border-radius:50%;background:#25D366;border:2px solid #075E54}
+.wa-meta{flex:1;min-width:0}
+.wa-meta h4{margin:0;font:700 1rem Manrope;color:#fff;line-height:1.2}
+.wa-status{font-size:.75rem;opacity:.92;display:block;color:#e0f2f1}
+.wa-close{background:none;border:0;color:#fff;font-size:1.15rem;cursor:pointer;padding:4px 8px;border-radius:6px;line-height:1;opacity:.85;transition:opacity .15s}
+.wa-close:hover{opacity:1;background:rgba(255,255,255,.15)}
+.wa-body{background:#ECE5DD;padding:18px 16px;min-height:130px;max-height:240px;overflow-y:auto;display:flex;flex-direction:column}
+.wa-bubble{background:#fff;border-radius:0 12px 12px 12px;padding:12px 14px;color:#1b2433;font-size:.9rem;line-height:1.45;box-shadow:0 1px 3px rgba(0,0,0,.12);max-width:92%;position:relative}
+.wa-bubble p{margin:0 0 6px}
+.wa-time{display:block;text-align:right;font-size:.7rem;color:#8696a0}
+.wa-footer{background:#F0F2F5;padding:10px 12px;display:flex;gap:8px;align-items:center;border-top:1px solid #e0e4e9}
+.wa-footer input{flex:1;padding:10px 14px;border:1px solid #d1d7db;border-radius:24px;font:inherit;font-size:.9rem;outline:none;background:#fff;color:#1b2433}
+.wa-footer input:focus{border-color:#25D366}
+.wa-send{width:40px;height:40px;border-radius:50%;background:#25D366;border:0;color:#fff;cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:background .15s,transform .15s}
+.wa-send:hover{background:#1fa951;transform:scale(1.05)}
+@media(max-width:560px){.wa-widget{bottom:16px;right:16px}.wa-popup{bottom:84px;right:16px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -384,6 +414,39 @@ Andorina</a>
 </div>
 </footer>
 
+<!-- Widget Flotante de WhatsApp -->
+<div class="wa-widget" id="waWidget">
+<div class="wa-popup" id="waPopup" role="dialog" aria-hidden="true" aria-labelledby="waTitle">
+<div class="wa-header">
+<div class="wa-avatar">
+<img src="content/Golondrina.png" alt="Andorina" width="28" height="22">
+<span class="wa-online-dot"></span>
+</div>
+<div class="wa-meta">
+<h4 id="waTitle">Andorina</h4>
+<span class="wa-status">En línea · Respuesta rápida</span>
+</div>
+<button class="wa-close" id="waClose" type="button" aria-label="Cerrar chat">✕</button>
+</div>
+<div class="wa-body">
+<div class="wa-bubble">
+<p>¡Hola! 👋 Bienvenido a <strong>Andorina</strong>. Cuéntanos qué proyecto o desafío tienes y te asesoramos directamente por WhatsApp.</p>
+<span class="wa-time" id="waTime">12:00</span>
+</div>
+</div>
+<form class="wa-footer" id="waForm">
+<input type="text" id="waInput" placeholder="Escribe tu mensaje aquí…" autocomplete="off" aria-label="Mensaje para WhatsApp">
+<button type="submit" class="wa-send" aria-label="Enviar a WhatsApp">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+</button>
+</form>
+</div>
+<button class="wa-toggle" id="waToggle" type="button" aria-expanded="false" aria-controls="waPopup" aria-label="Abrir chat de WhatsApp">
+<span class="wa-tooltip">¿Hablamos por WhatsApp?</span>
+<svg viewBox="0 0 32 32" width="34" height="34" fill="#fff" aria-hidden="true"><path d="M16 2a13.9 13.9 0 0 0-12 21L2 30l7.3-1.9A14 14 0 1 0 16 2zm0 25.5a11.5 11.5 0 0 1-5.9-1.6l-.4-.3-4.4 1.1 1.2-4.2-.3-.4A11.5 11.5 0 1 1 16 27.5zm6.3-8.6c-.3-.2-2-.9-2.3-1s-.6-.2-.8.2-.9 1.1-1.1 1.3-.4.3-.7.1a9.2 9.2 0 0 1-2.7-1.7 10.2 10.2 0 0 1-1.9-2.3c-.2-.3 0-.5.2-.7s.3-.4.5-.6l.3-.4c.1-.2.1-.3 0-.5s-.8-2-1.1-2.7c-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .4a4.4 4.4 0 0 0-1.4 3.3 7.6 7.6 0 0 0 1.6 4.1 17.5 17.5 0 0 0 6.7 5.9 22.9 22.9 0 0 0 2.2.8c.9.3 1.8.3 2.5.2.8-.1 2.4-1 2.7-2s.3-1.8.2-2c-.1-.2-.4-.3-.7-.5z"/></svg>
+</button>
+</div>
+
 <dialog id="m-priv" aria-labelledby="t-priv"><h2 id="t-priv" style="font-size:1.4rem">Política de Privacidad</h2><p>Texto base provisional. Los datos enviados mediante el formulario se usarán únicamente para responder tu consulta. El texto legal definitivo debe ser redactado y validado por Andorina antes de producción.</p><form method="dialog"><button class="btn btn-s">Cerrar</button></form></dialog>
 <dialog id="m-legal" aria-labelledby="t-legal"><h2 id="t-legal" style="font-size:1.4rem">Aviso Legal</h2><p>Texto base provisional. Los datos de la razón social, identificación fiscal y condiciones de uso deben ser completados por Andorina antes de salir a producción.</p><form method="dialog"><button class="btn btn-s">Cerrar</button></form></dialog>
 
@@ -394,8 +457,9 @@ const CONFIG = {
   FORM_ENDPOINT: "https://api.web3forms.com/submit",
   WEB3FORMS_KEY: "4510b8d6-2620-465a-94bd-78c4f3d975a9",
   CONTACT_EMAIL: "",   // Correo oficial
-  CONTACT_PHONE: "",   // Teléfono oficial
-  CONTACT_ADDRESS: ""  // Dirección oficial
+  CONTACT_PHONE: "+57 301 3090771",  // Teléfono oficial
+  CONTACT_ADDRESS: "", // Dirección oficial
+  WHATSAPP_NUMBER: "573013090771"
 };
 const $ = (s, c = document) => c.querySelector(s);
 $("#yr").textContent = new Date().getFullYear();
@@ -413,9 +477,15 @@ if (reduce || !("IntersectionObserver" in window)) {
 
 /* Contacto del footer */
 const cb = $("#contact-block");
-[["Correo", CONFIG.CONTACT_EMAIL], ["Teléfono", CONFIG.CONTACT_PHONE], ["Dirección", CONFIG.CONTACT_ADDRESS]].forEach(([k, v]) => {
+[["Correo", CONFIG.CONTACT_EMAIL], ["WhatsApp", CONFIG.CONTACT_PHONE], ["Dirección", CONFIG.CONTACT_ADDRESS]].forEach(([k, v]) => {
   const li = document.createElement("li");
-  li.textContent = v ? `${k}: ${v}` : `${k}: pendiente de configurar`;
+  if (k === "WhatsApp" && v) {
+    li.innerHTML = `WhatsApp: <a href="https://wa.me/${CONFIG.WHATSAPP_NUMBER}" target="_blank" rel="noopener" style="text-decoration:underline">${v}</a>`;
+  } else if (k === "Correo" && v) {
+    li.innerHTML = `Correo: <a href="mailto:${v}">${v}</a>`;
+  } else {
+    li.textContent = v ? `${k}: ${v}` : `${k}: pendiente de configurar`;
+  }
   cb.appendChild(li);
 });
 
@@ -541,6 +611,45 @@ form.addEventListener("submit", async e => {
     send.disabled = false;
   }
 });
+
+/* WhatsApp Widget Logic */
+const waWidget = $("#waWidget"), waToggle = $("#waToggle"), waPopup = $("#waPopup"), waClose = $("#waClose"), waForm = $("#waForm"), waInput = $("#waInput"), waTime = $("#waTime");
+if (waTime) {
+  const d = new Date();
+  waTime.textContent = d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
+}
+function toggleWa(open) {
+  const isOpen = typeof open === 'boolean' ? open : !waWidget.classList.contains("open");
+  waWidget.classList.toggle("open", isOpen);
+  waToggle.setAttribute("aria-expanded", String(isOpen));
+  waPopup.setAttribute("aria-hidden", String(!isOpen));
+  if (isOpen) {
+    setTimeout(() => waInput && waInput.focus(), 150);
+  } else {
+    waToggle.focus();
+  }
+}
+if (waToggle && waClose && waForm) {
+  waToggle.addEventListener("click", () => toggleWa());
+  waClose.addEventListener("click", () => toggleWa(false));
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && waWidget.classList.contains("open")) toggleWa(false);
+  });
+  document.addEventListener("click", e => {
+    if (waWidget.classList.contains("open") && !waWidget.contains(e.target)) {
+      toggleWa(false);
+    }
+  });
+  waForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const raw = waInput.value.trim();
+    const msg = raw || "Hola Andorina, me gustaría consultar sobre el desarrollo de un proyecto o solución para mi empresa.";
+    const url = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+    waInput.value = "";
+    toggleWa(false);
+  });
+}
 </script>
 </body>
 </html>
