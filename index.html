@@ -346,6 +346,7 @@ Andorina</a>
 <p>Describe brevemente tu situación. Revisaremos tu caso y te responderemos para plantear los siguientes pasos. Cada propuesta parte de un diagnóstico previo.</p>
 </div>
 <form id="form" novalidate>
+<input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
 <div class="f"><label for="nombre">Nombre completo *</label><input id="nombre" name="nombre" autocomplete="name" required aria-describedby="e-nombre"><p class="err" id="e-nombre"></p></div>
 <div class="f"><label for="empresa">Empresa (opcional)</label><input id="empresa" name="empresa" autocomplete="organization"></div>
 <div class="f"><label for="email">Correo electrónico *</label><input id="email" name="email" type="email" autocomplete="email" required aria-describedby="e-email"><p class="err" id="e-email"></p></div>
@@ -390,7 +391,8 @@ Andorina</a>
 "use strict";
 /* ===== CONFIGURACIÓN PENDIENTE: completar con datos reales de Andorina ===== */
 const CONFIG = {
-  FORM_ENDPOINT: "",   // URL del endpoint de producción (POST JSON). Vacío = modo demostración.
+  FORM_ENDPOINT: "https://api.web3forms.com/submit",
+  WEB3FORMS_KEY: "4510b8d6-2620-465a-94bd-78c4f3d975a9",
   CONTACT_EMAIL: "",   // Correo oficial
   CONTACT_PHONE: "",   // Teléfono oficial
   CONTACT_ADDRESS: ""  // Dirección oficial
@@ -491,21 +493,53 @@ form.addEventListener("submit", async e => {
     form.querySelector('[aria-invalid="true"]').focus();
     return;
   }
-  if (!CONFIG.FORM_ENDPOINT) {
-    setStatus("unconfigured_endpoint", "<strong>Modo demostración.</strong> Este formulario aún no está conectado a un endpoint de producción, por lo que <u>no se envió ningún mensaje</u>. Define <code>CONFIG.FORM_ENDPOINT</code> en el script para habilitar el envío.");
+  if (!CONFIG.FORM_ENDPOINT || !CONFIG.WEB3FORMS_KEY) {
+    setStatus("unconfigured_endpoint", "<strong>Modo demostración.</strong> Este formulario aún no está conectado a un endpoint de producción, por lo que <u>no se envió ningún mensaje</u>.");
     return;
   }
   send.disabled = true;
-  setStatus("submitting", "Enviando…");
+  setStatus("submitting", "Enviando mensaje…");
   try {
-    const data = Object.fromEntries(new FormData(form));
-    const res = await fetch(CONFIG.FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-    if (!res.ok) throw new Error(res.status);
+    const rawData = Object.fromEntries(new FormData(form));
+    const serviceLabels = {
+      custom: "Desarrollo de software a medida",
+      consulting: "Consultoría tecnológica",
+      integration: "Integración de sistemas y APIs",
+      automation: "Automatización y optimización de procesos",
+      unsure: "Aún no estoy seguro / Necesito asesoría"
+    };
+
+    const payload = {
+      access_key: CONFIG.WEB3FORMS_KEY,
+      subject: `Nuevo contacto web: ${rawData.nombre}${rawData.empresa ? ' (' + rawData.empresa + ')' : ''}`,
+      from_name: "Andorina Web",
+      name: rawData.nombre,
+      email: rawData.email,
+      empresa: rawData.empresa || "No indicada",
+      servicio: serviceLabels[rawData.servicio] || rawData.servicio || "No seleccionado",
+      message: rawData.msg,
+      botcheck: rawData.botcheck || ""
+    };
+
+    const res = await fetch(CONFIG.FORM_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+    const result = await res.json();
+    if (!res.ok || !result.success) {
+      throw new Error(result.message || "Error al procesar el mensaje");
+    }
     form.reset();
-    setStatus("success", "Mensaje enviado. Gracias por escribirnos; te responderemos pronto.");
+    setStatus("success", "Mensaje enviado con éxito. Gracias por contactarnos; te responderemos a la brevedad.");
   } catch (err) {
-    setStatus("error", "No pudimos enviar el mensaje. Inténtalo de nuevo en unos minutos.");
-  } finally { send.disabled = false; }
+    setStatus("error", "No pudimos enviar el mensaje. Por favor, inténtalo de nuevo en unos momentos.");
+  } finally {
+    send.disabled = false;
+  }
 });
 </script>
 </body>
